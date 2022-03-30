@@ -283,7 +283,7 @@ impl Encode for Compact {
             let val_with_mask = val << 2;
 
             val_with_mask.encode(writer)
-        } else if val < ((1 << 14) - 1) {
+        } else if val < (1 << 14) {
             let val = val as u16;
 
             let val = val.to_le().rotate_left(2) | 0b01;
@@ -293,7 +293,7 @@ impl Encode for Compact {
             writer.write_all(&val)?;
 
             Ok(())
-        } else if val < ((1 << 30) - 1) {
+        } else if val < (1 << 30) {
             let val = val as u32;
 
             let val = val.to_le().rotate_left(2) | 0b10;
